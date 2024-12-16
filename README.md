@@ -12,7 +12,7 @@ As an example, a traditional test might look like this:
 def test_user_can_delete_post():
   user = User(
     id=11,
-  	firstname="John",
+    firstname="John",
     email="anemail@gmail.com",
     mobile="666777888"
     role="admin",
@@ -23,7 +23,7 @@ def test_user_can_delete_post():
   
   post = Post(
     id=22,
-  	owner=user,
+    owner=user,
     content="this is the content of my post"
     showed=True
   )
