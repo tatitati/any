@@ -105,8 +105,23 @@ class Any:
     def dateTimeAfter(afterDateTime) -> datetime:
         if isinstance(afterDateTime, str):
             afterDateTime = parse(afterDateTime, fuzzy=True)
-            
+
         return afterDateTime + timedelta(days=Any.positiveNumber())
+
+    @staticmethod
+    def datetimeBetween(from_datetime, to_datetime) -> datetime:
+        if isinstance(from_datetime, str):
+            from_datetime = parse(from_datetime, fuzzy=True)
+
+        if isinstance(to_datetime, str):
+            to_datetime = parse(to_datetime, fuzzy=True)
+
+        from_datetime_ts = from_datetime.timestamp()
+        to_datetime_ts = to_datetime.timestamp()
+
+        random_ts_between = Any.positiveNumber(min=from_datetime_ts, max=to_datetime_ts)
+
+        return datetime.fromtimestamp(random_ts_between)
 
     @staticmethod
     def dateTime() -> datetime:
