@@ -216,5 +216,10 @@ print(result) # ['d', 'e', 'b']
 You can generate random dates upon conditions:
 
 ```python
+result = Any.dateTimeBefore("2022-10-10 23:11:05")
+print(result) # 2016-12-28 23:11:05
 
+
+result = Any.datetimeBetween("2023-10-10", "2027-09-09")
+print(result) # 2025-08-10 22:00:19
 ```
