@@ -107,24 +107,24 @@ class BuilderUser:
         
     def build(self)->User:
         return User(
-          	id=self.id,
+            id=self.id,
             email=self.email,
             created_at=self.created_at,
             email_confirmed=self.email_confirmed,
             role=self.role,
-          	department=self.department
+            department=self.department
         )
 
     def admin(self):
       	# now you can see how builder explain different types of initializing things in your applications
         # in this case, we explain that an admin is using admin role, but also is working in administration department
         self.role="admin"
-	      self.department = "administration"
+        self.department = "administration"
         return self
 
     def user(self):
         self.role="user"
-	      self.department = None
+        self.department = None
         return self
 
     def manager(self):
