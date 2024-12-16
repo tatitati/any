@@ -10,12 +10,25 @@ class Any:
 
     @staticmethod
     def listOf(min, max, factoryFunction):
+        result = []
         amount = Any.positiveNumber(min, max)
-        return [factoryFunction()] * amount
+        for i in range(0, amount):
+            data = factoryFunction()
+            result.append(data)
+
+        return result
 
     @staticmethod
-    def subsetOf(amount, items):
-        pass
+    def subsetOf(min, max, items):
+        items_randomized = random.sample(items, len(items))
+        if min == None:
+            min=1
+        if max == None or max > len(items):
+            max=len(items)-1
+
+
+        amount_to_get = Any.positiveNumber(min=min, max=max)
+        return items_randomized[:amount_to_get]
 
     @staticmethod
     def positiveNumber(min: int = 0, max=9999) -> int:
@@ -102,34 +115,6 @@ class Any:
         return Any.dateTime().date()
 
     @staticmethod
-    def country() -> str:
-        return Any.of(["España", "Reino Unido", "Francia", "Italia", "Alemania"])
-
-    @staticmethod
-    def street_via() -> str:
-        return Any.of(["calle", "Avda", "plaza", "corredera", "carretera"])
-
-    @staticmethod
-    def postcode() -> str:
-        return Any.of(["28015", "23400", "23700", "N153TS", "carretera"])
-
-    @staticmethod
-    def city():
-        return Any.of(["London", "Madrid", "Buenos Aires", "Vikingolandia", "Coventry"])
-
-    @staticmethod
-    def country() -> str:
-        return Any.of(["Spain", "United Kingdom", "France", "Ghana", "Argentine", "Italy"])
-
-    @staticmethod
-    def streetVia() -> str:
-        return Any.of(["street", "road", "square", "avenue"])
-
-    @staticmethod
-    def address() -> str:
-        return f"{Any.streetVia()} {Any.word()}, {Any.city()}, {Any.country()}"
-
-    @staticmethod
     def latitude(min: int = None, max: int = None) -> str:
         min=-90 if min == None else min
         max=90  if max == None else max
@@ -146,7 +131,3 @@ class Any:
         random_lat = random.uniform(min, max)
 
         return f"{round(random_lat, decimal_places)}"
-
-    @staticmethod
-    def point() -> str:
-        return f"Point({Any.longitude()} {Any.latitude()} )"

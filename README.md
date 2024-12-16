@@ -181,3 +181,5 @@ def test_user_can_delete_post():
   assert None == service_post.find_post(id=post.id)
 ```
 
+# Additional features of Graba
+
