@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 setup(
-    name="any",
+    name="graba",
     version="0.1.0",
     description="A library to generate random value for different concepts",
     long_description=open("README.md").read(),
