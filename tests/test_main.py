@@ -26,8 +26,7 @@ def test_positiveNumber():
 
 
 def test_subsetOf():
-    items = ["a", "b", "c", "d", "e", "f"]
-    result = Any.subsetOf(min=1, max=4, items=items)
+    result = Any.subsetOf(min=1, max=4, items=["a", "b", "c", "d", "e", "f"])
     print(result) # ['d', 'e', 'b']
 
 def test_dateTimeBefore():

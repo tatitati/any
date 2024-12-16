@@ -26,7 +26,6 @@ class Any:
         if max == None or max > len(items):
             max=len(items)-1
 
-
         amount_to_get = Any.positiveNumber(min=min, max=max)
         return items_randomized[:amount_to_get]
 
