@@ -1,6 +1,7 @@
 import random
 import string
 from datetime import date, datetime, timedelta
+from dateutil.parser import parse
 
 class Any:
 
@@ -40,6 +41,10 @@ class Any:
     @staticmethod
     def anyNumber() -> int:
         return Any.of([Any.positiveNumber(), Any.negativeNumber()])
+
+    @staticmethod
+    def rating() -> int:
+        return Any.positiveNumber(min=0, max=5)
 
     @staticmethod
     def anyLetter() -> str:
@@ -90,11 +95,17 @@ class Any:
         return now + timedelta(days=Any.positiveNumber())
 
     @staticmethod
-    def dateTimeBefore(beforeDateTime: datetime) -> datetime:
+    def dateTimeBefore(beforeDateTime) -> datetime:
+        if isinstance(beforeDateTime, str):
+            beforeDateTime = parse(beforeDateTime, fuzzy=True)
+
         return beforeDateTime - timedelta(days=Any.positiveNumber())
 
     @staticmethod
-    def dateTimeAfter(afterDateTime: datetime) -> datetime:
+    def dateTimeAfter(afterDateTime) -> datetime:
+        if isinstance(afterDateTime, str):
+            afterDateTime = parse(afterDateTime, fuzzy=True)
+            
         return afterDateTime + timedelta(days=Any.positiveNumber())
 
     @staticmethod
@@ -104,3 +115,21 @@ class Any:
     @staticmethod
     def date() -> date:
         return Any.dateTime().date()
+
+    @staticmethod
+    def latitude(min: int = None, max: int = None) -> str:
+        min=-90 if min == None else min
+        max=90  if max == None else max
+        decimal_places = 4
+        random_lat = random.uniform(min, max)
+
+        return f"{round(random_lat, decimal_places)}"
+
+    @staticmethod
+    def longitude(min: int = None, max: int = None) -> str:
+        min = -180 if min == None else min
+        max =  180 if max == None else max
+        decimal_places = 4
+        random_lat = random.uniform(min, max)
+
+        return f"{round(random_lat, decimal_places)}"

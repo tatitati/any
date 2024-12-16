@@ -32,3 +32,9 @@ def test_subsetOf():
 def test_dateTimeBefore():
     result = Any.dateTimeBefore(datetime(2015, 12, 25, 10, 30, 45))
     print(result) # 1994-10-22 10:30:45
+
+    result = Any.dateTimeBefore("2022-10-10")
+    print(result) # 2000-03-16 00:00:00
+
+    result = Any.dateTimeBefore("2022-10-10 23:11:05")
+    print(result) # 2016-12-28 23:11:05
