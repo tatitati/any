@@ -42,10 +42,6 @@ class Any:
         return Any.of([Any.positiveNumber(), Any.negativeNumber()])
 
     @staticmethod
-    def rating() -> int:
-        return Any.positiveNumber(min=0, max=5)
-
-    @staticmethod
     def anyLetter() -> str:
         return Any.of(list(string.ascii_lowercase))
 
@@ -84,10 +80,6 @@ class Any:
         return Any.of([True, False])
 
     @staticmethod
-    def email()->str:
-        return f"{Any.word(max = 5)}@{Any.word(max=5)}.{Any.of(['com', 'net', 'co.uk', 'es', 'io'])}"
-
-    @staticmethod
     def dateTimeInPast() -> datetime:
         now = datetime.now()
         return now - timedelta(days = Any.positiveNumber())
@@ -112,21 +104,3 @@ class Any:
     @staticmethod
     def date() -> date:
         return Any.dateTime().date()
-
-    @staticmethod
-    def latitude(min: int = None, max: int = None) -> str:
-        min=-90 if min == None else min
-        max=90  if max == None else max
-        decimal_places = 4
-        random_lat = random.uniform(min, max)
-
-        return f"{round(random_lat, decimal_places)}"
-
-    @staticmethod
-    def longitude(min: int = None, max: int = None) -> str:
-        min = -180 if min == None else min
-        max =  180 if max == None else max
-        decimal_places = 4
-        random_lat = random.uniform(min, max)
-
-        return f"{round(random_lat, decimal_places)}"
