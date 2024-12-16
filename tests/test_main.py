@@ -29,3 +29,7 @@ def test_subsetOf():
     items = ["a", "b", "c", "d", "e", "f"]
     result = Any.subsetOf(min=1, max=4, items=items)
     print(result) # ['d', 'e', 'b']
+
+def test_dateTimeBefore():
+    result = Any.dateTimeBefore(datetime(2015, 12, 25, 10, 30, 45))
+    print(result) # 1994-10-22 10:30:45

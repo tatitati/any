@@ -183,3 +183,38 @@ def test_user_can_delete_post():
 
 # Additional features of Graba
 
+You can generate controlled random list of objects:
+
+```python
+def createData():
+    return {
+        "age": Any.positiveNumber(),
+        "name": Any.word()
+    }
+
+
+result = Any.listOf(
+    min=3,
+    max=7,
+    factoryFunction=createData
+)
+print(result)
+# [
+#     {'age': 7323, 'name': 'vecalmzbdcvdwuqk'},
+#     {'age': 9705, 'name': 'bdqqpgtpgbfbci'},
+#     {'age': 9656, 'name': 'ojizqxl'}
+# ]
+```
+
+You can "pick" random items from a list:
+
+```python
+result = Any.subsetOf(min=1, max=4, items=["a", "b", "c", "d", "e", "f"])
+print(result) # ['d', 'e', 'b']
+```
+
+You can generate random dates upon conditions:
+
+```python
+
+```
