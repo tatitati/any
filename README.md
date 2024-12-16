@@ -49,18 +49,18 @@ from graba.main import Any
 
 def test_user_can_delete_post():
   user = User(
-    id=					Any.positiveNumber(),
+    id=         Any.positiveNumber(),
   	firstname=	Any.word(),
-    email =			Any.email(),
-    mobile=			Any.mobile()
-    role=				Any.of(["admin", "user"]),
-    city=				Any.word(),
-    enable=			True,
+    email =		Any.email(),
+    mobile=		Any.mobile()
+    role=		Any.of(["admin", "user"]),
+    city=		Any.word(),
+    enable=		True,
     department= Any.of([None, "administration", "management"])
   )
   
   post = Post(
-    id=				Any.positiveNumber(),
+    id=         Any.positiveNumber(),
   	owner=		user,
     content=	Any.sentence()
     showed=		Any.boolean()
@@ -168,13 +168,13 @@ from graba.main import Any
 
 def test_user_can_delete_post():
   user = BuilderUser()\
-  				.admin()\
-  				.withCreatedAt(Any.dateTimeAfter(datetime(2024, 12, 16, 14, 30, 0)))\
-  				.build()
+            .admin()\
+            .withCreatedAt(Any.dateTimeAfter(datetime(2024, 12, 16, 14, 30, 0)))\
+            .build()
   
   post = BuilderPost()\
-  				.withOwner(user)\
-  				.build()
+            .withOwner(user)\
+            .build()
   
   service_post.delete(post)
   
