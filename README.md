@@ -50,20 +50,20 @@ from graba.main import Any
 def test_user_can_delete_post():
   user = User(
     id=         Any.positiveNumber(),
-  	firstname=	Any.word(),
-    email =		Any.email(),
-    mobile=		Any.mobile()
-    role=		Any.of(["admin", "user"]),
-    city=		Any.word(),
-    enable=		True,
+    firstname=  Any.word(),
+    email=      Any.email(),
+    mobile=     Any.mobile()
+    role=       Any.of(["admin", "user"]),
+    city=       Any.word(),
+    enable=     True,
     department= Any.of([None, "administration", "management"])
   )
   
   post = Post(
     id=         Any.positiveNumber(),
-  	owner=		user,
-    content=	Any.sentence()
-    showed=		Any.boolean()
+    owner=      user,
+    content=    Any.sentence()
+    showed=     Any.boolean()
   )
   
   service_post.delete(post)
