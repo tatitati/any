@@ -8,7 +8,7 @@ setup(
     long_description_content_type="text/markdown",
     author="Francisco Jose Albert Albusac",
     author_email="francis.jaa@protonmail.com",
-    url="https://github.com/tatitati/your-library",
+    url="https://github.com/tatitati/graba",
     packages=find_packages(),
     classifiers=[
         "Programming Language :: Python :: 3",
