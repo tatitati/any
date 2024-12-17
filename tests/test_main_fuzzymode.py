@@ -39,6 +39,12 @@ def test_null():
     print(result1) # None
     print(result2) # "null"
 
+def test_word():
+    result1 = any.word()
+    result2 = any.word()
+    print(result1) # "ekm"
+    print(result2) # " mpxeotfwfxvfnxcagglpk"
+
 
 def test_subsetOf():
     result = any.subsetOf(min=1, max=4, items=["a", "b", "c", "d", "e", "f"])
