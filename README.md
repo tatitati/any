@@ -48,22 +48,24 @@ Graba reduce all this "specification noise", so you focus on the properties that
 from graba.main import Any
 
 def test_user_can_delete_post():
+  any = Any()
+  
   user = User(
-    id=         Any.positiveNumber(),
-    firstname=  Any.word(),
-    email=      Any.email(),
-    mobile=     Any.mobile()
-    role=       Any.of(["admin", "user"]),
-    city=       Any.word(),
+    id=         any.positiveNumber(),
+    firstname=  any.word(),
+    email=      any.email(),
+    mobile=     any.mobile()
+    role=       any.of(["admin", "user"]),
+    city=       any.word(),
     enable=     True,
-    department= Any.of([None, "administration", "management"])
+    department= any.of([None, "administration", "management"])
   )
   
   post = Post(
-    id=         Any.positiveNumber(),
+    id=         any.positiveNumber(),
     owner=      user,
-    content=    Any.sentence()
-    showed=     Any.boolean()
+    content=    any.sentence()
+    showed=     any.boolean()
   )
   
   service_post.delete(post)
@@ -97,13 +99,14 @@ from tests.Any import Any
 class BuilderUser:
 
     def __init__(self):
-      	self.id=Any.positiveNumber()
-        self.email=Any.email()
-        self.created_at=Any.dateTime()
-        self.email=Any.email()
-        self.email_confirmed=Any.bool()
-        self.role=Any.of(["admin", "user", "manager"])
-        self.department=Any.of([None, "management", "administration"])
+        any = Any()
+      	self.id=any.positiveNumber()
+        self.email=any.email()
+        self.created_at=any.dateTime()
+        self.email=any.email()
+        self.email_confirmed=any.bool()
+        self.role=any.of(["admin", "user", "manager"])
+        self.department=any.of([None, "management", "administration"])
         
     def build(self)->User:
         return User(
@@ -151,10 +154,11 @@ class BuilderUser:
 class BuilderPost:
 
     def __init__(self):
-        self.id=Any.email()
+        any = Any()
+        self.id=any.email()
         self.owner=BuilderUser().build()
-        self.content=Any.sentene()
-        self.showed=Any.bool()
+        self.content=any.sentene()
+        self.showed=any.bool()
         
     def with_owner(self, owner: User):
       self.owner= user
@@ -167,9 +171,10 @@ Then in your tests you use this builder like:
 from graba.main import Any
 
 def test_user_can_delete_post():
+  any = Any()
   user = BuilderUser()\
             .admin()\
-            .withCreatedAt(Any.dateTimeAfter(datetime(2024, 12, 16, 14, 30, 0)))\
+            .withCreatedAt(any.dateTimeAfter(datetime(2024, 12, 16, 14, 30, 0)))\
             .build()
   
   post = BuilderPost()\
@@ -186,14 +191,16 @@ def test_user_can_delete_post():
 You can generate controlled random list of objects:
 
 ```python
+any = Any()
+
 def createData():
     return {
-        "age": Any.positiveNumber(),
-        "name": Any.word()
+        "age": any.positiveNumber(),
+        "name": any.word()
     }
 
 
-result = Any.listOf(
+result = any.listOf(
     min=3,
     max=7,
     factoryFunction=createData
@@ -209,17 +216,17 @@ print(result)
 You can "pick" random items from a list:
 
 ```python
-result = Any.subsetOf(min=1, max=4, items=["a", "b", "c", "d", "e", "f"])
+result = any().subsetOf(min=1, max=4, items=["a", "b", "c", "d", "e", "f"])
 print(result) # ['d', 'e', 'b']
 ```
 
 You can generate random dates upon conditions:
 
 ```python
-result = Any.dateTimeBefore("2022-10-10 23:11:05")
+result = any().dateTimeBefore("2022-10-10 23:11:05")
 print(result) # 2016-12-28 23:11:05
 
 
-result = Any.datetimeBetween("2023-10-10", "2027-09-09")
+result = any().datetimeBetween("2023-10-10", "2027-09-09")
 print(result) # 2025-08-10 22:00:19
 ```
