@@ -54,7 +54,7 @@ def test_user_can_delete_post():
     id=         any.positiveNumber(),
     firstname=  any.word(),
     email=      any.email(),
-    mobile=     any.mobile()
+    mobile=     any.mobile(),
     role=       any.of(["admin", "user"]),
     city=       any.word(),
     enable=     True,
@@ -230,3 +230,41 @@ print(result) # 2016-12-28 23:11:05
 result = any().datetimeBetween("2023-10-10", "2027-09-09")
 print(result) # 2025-08-10 22:00:19
 ```
+
+# Being realistic: Fuzzy mode
+
+Let's be honest. In real life you cannot expect to recieve all the data "clean". Sometimes you receive a number or a boolean as string, others your
+strings are not trimmed, others your null are not consisten so you might receive "null", None, "none", etc.
+
+Graba consider that testing all these edge cases and observe how your application performs is of interests.
+As an example of working with fuzzy mode you can do:
+
+```python
+from graba.main import Any
+
+def test_user_can_delete_post():
+    any = Any(fuzzy_mode=True) # <--- IMPORTANT LINE
+
+    user = User(
+        id=         any.positiveNumber(), # This might be one of: 23, "23", "23.0"
+        firstname=  any.word(),           # This might be one of: " MYword", "MYword", "MYword ", ...
+        email=      any.email(),           
+        mobile=     any.mobile(),
+        role=       any.of(["admin", "user"]),
+        city=       any.word(),
+        enable=     True,
+        department= any.of([None, "administration", "management"])
+    )
+
+    post = Post(
+        id=         any.positiveNumber(),   # This might be one of: 34, "34", "34.0"
+        owner=      user,
+        content=    any.sentence(),
+        showed=     any.boolean()           # This might be one of: "true", True, "True", 1
+    )
+
+    service_post.delete(post)
+
+    service_post.find_post(id=post.id) # exception!!!!, post.id is not an integer
+```
+
