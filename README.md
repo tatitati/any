@@ -268,3 +268,5 @@ def test_user_can_delete_post():
     service_post.find_post(id=post.id) # exception!!!!, post.id is not an integer
 ```
 
+In this case, fuzzy_mode will teach that might be interesting to check some values in the id and possibly make a proper test. This is
+so because python is not typed, but with this you can put an extra layer for peace of mind :)
