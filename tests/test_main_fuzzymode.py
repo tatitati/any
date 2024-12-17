@@ -3,9 +3,9 @@ import random
 
 from main import Any
 
-
-any = Any()
+any = Any(fuzzy_mode=True)
 def test_positiveNumber():
+
     def createData():
         return {
             "age": any.positiveNumber(),
@@ -24,6 +24,14 @@ def test_positiveNumber():
     #     {'age': 9705, 'name': 'bdqqpgtpgbfbci'},
     #     {'age': 9656, 'name': 'ojizqxl'}
     # ]
+
+def test_boolean():
+    result1 = any.bool()
+    result2 = any.bool()
+    result3 = any.bool()
+    print(result1) # 0
+    print(result2) # False
+    print(result3) # "true
 
 
 def test_subsetOf():
