@@ -33,6 +33,12 @@ def test_boolean():
     print(result2) # False
     print(result3) # "true
 
+def test_null():
+    result1 = any.null()
+    result2 = any.null()
+    print(result1) # None
+    print(result2) # "null"
+
 
 def test_subsetOf():
     result = any.subsetOf(min=1, max=4, items=["a", "b", "c", "d", "e", "f"])
