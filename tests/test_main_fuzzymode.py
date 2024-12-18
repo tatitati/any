@@ -60,7 +60,9 @@ def test_positiveInt():
 
 def test_subsetOf():
     result = any.subsetOf(min=1, max=4, items=["a", "b", "c", "d", "e", "f"])
+    result2 = any.subsetOf(items=["a", "b", "c", "d", "e", "f"])
     print(result) # ['d', 'e', 'b']
+    print(result2) # ['d', 'e', 'b']
 
 def test_dateTimeBefore():
     result = any.dateTimeBefore(datetime(2015, 12, 25, 10, 30, 45))

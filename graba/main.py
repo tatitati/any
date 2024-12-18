@@ -12,24 +12,25 @@ class Any():
         return random.choice(options)
 
 
-    def listOf(self, min, max, factoryFunction):
+    def listOf(self, factoryFunction, min: int =1, max: int = 5):
         result = []
-        amount = int(self.positiveInt(min, max))
+        amount = random.randrange(min, max)
         for i in range(0, amount):
             data = factoryFunction()
             result.append(data)
 
         return result
 
-    def subsetOf(self, min, max, items):
-        items_randomized = random.sample(items, len(items))
+    def subsetOf(self, items: list, min: int = None, max: int=None):
         if min == None:
             min=1
         if max == None or max > len(items):
-            max=len(items)-1
+            max=len(items)
 
-        amount_to_get = int(self.positiveInt(min=min, max=max))
-        return items_randomized[:amount_to_get]
+        amount_to_get = random.randrange(min, max)
+
+        items_randomized = random.sample(items, len(items))
+        return items_randomized[:amount_to_get] # grab X first elements
 
     def positiveInt(self, min: int = 0, max=9999) -> int:
         number: float =random.uniform(min, max)
@@ -53,14 +54,14 @@ class Any():
 
         return int(number)
 
-    def positiveFloat(self, min: int = 0, max=9999) -> float:
+    def positiveFloat(self, min: int = 0, max: int =9999) -> float:
         number: float =random.uniform(min, max)
         if self._mode_datadirty == True:
             return self.of([int(number), str(number), str(int(number)), float(number)])
 
         return number
 
-    def negativeFloat(self, min: int = -9999, max=0) -> float:
+    def negativeFloat(self, min: int = -9999, max: int =0) -> float:
         number: float = random.uniform(min, max)
 
         if self._mode_datadirty == True:
@@ -68,7 +69,7 @@ class Any():
 
         return number
 
-    def anyFloat(self, min=-1000, max=1000) -> float:
+    def anyFloat(self, min =-1000, max =1000) -> float:
         number: float = random.uniform(min, max)
         if self._mode_datadirty == True:
             return self.of([int(number), str(number), str(int(number)), float(number)])
