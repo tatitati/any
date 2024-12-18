@@ -51,6 +51,12 @@ def test_sentence():
     print(result1) # "ekm"
     print(result2) # " mpxeotfwfxvfnxcagglpk"
 
+def test_positiveInt():
+    result1 = any.positiveInt()
+    result2 = any.positiveInt()
+    print(result1) # "ekm"
+    print(result2) # " mpxeotfwfxvfnxcagglpk"
+
 
 def test_subsetOf():
     result = any.subsetOf(min=1, max=4, items=["a", "b", "c", "d", "e", "f"])

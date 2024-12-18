@@ -34,7 +34,7 @@ class Any():
     def positiveInt(self, min: int = 0, max=9999) -> int:
         number: float =random.uniform(min, max)
         if self._mode_datadirty == True:
-            return self.of([int(number), str(number), float(number)])
+            return self.of([int(number), str(number), str(int(number)), float(number)])
 
         return int(number)
 
@@ -42,21 +42,21 @@ class Any():
         number: float = random.uniform(min, max)
 
         if self._mode_datadirty == True:
-            return self.of([int(number), str(number), float(number)])
+            return self.of([int(number), str(number), str(int(number)), float(number)])
 
         return int(number)
 
     def anyInt(self, min=-1000, max=1000) -> int:
         number: float = random.uniform(min, max)
         if self._mode_datadirty == True:
-            return self.of([int(number), str(number), float(number)])
+            return self.of([int(number), str(number), str(int(number)), float(number)])
 
         return int(number)
 
     def positiveFloat(self, min: int = 0, max=9999) -> float:
         number: float =random.uniform(min, max)
         if self._mode_datadirty == True:
-            return self.of([int(number), str(number), float(number)])
+            return self.of([int(number), str(number), str(int(number)), float(number)])
 
         return number
 
@@ -64,14 +64,14 @@ class Any():
         number: float = random.uniform(min, max)
 
         if self._mode_datadirty == True:
-            return self.of([int(number), str(number), float(number)])
+            return self.of([int(number), str(number), str(int(number)), float(number)])
 
         return number
 
     def anyFloat(self, min=-1000, max=1000) -> float:
         number: float = random.uniform(min, max)
         if self._mode_datadirty == True:
-            return self.of([int(number), str(number), float(number)])
+            return self.of([int(number), str(number), str(int(number)), float(number)])
 
         return number
 
