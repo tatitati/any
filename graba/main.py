@@ -94,11 +94,11 @@ class Any():
 
         return word
 
-    def sentence(self, min_words: int = 1, max_words: int = 5) -> str:
+    def sentence(self, min_words: int = 2, max_words: int = 5) -> str:
         amount_words = self.positiveInt(min=min_words, max=max_words)
         words=[]
         for i in range(amount_words):
-            words.append(Any.word())
+            words.append(self.word())
 
         sentence = ' '.join(words)
 
