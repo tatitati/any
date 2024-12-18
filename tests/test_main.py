@@ -34,6 +34,10 @@ def test_anySentence():
     result = any.sentence()
     print(result) # -520.9585233638023
 
+def test_anyWord():
+    result = any.word()
+    print(result) # lpiqwzwyvcxuxbsaijdgtnvhhluj
+
 def test_subsetOf():
     result = any.subsetOf(min=1, max=4, items=["a", "b", "c", "d", "e", "f"])
     print(result) # ['d', 'e', 'b']

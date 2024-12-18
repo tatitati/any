@@ -53,14 +53,14 @@ class Any():
 
         return int(number)
 
-    def positiveFloat(self, min: int = 0, max=9999) -> int:
+    def positiveFloat(self, min: int = 0, max=9999) -> float:
         number: float =random.uniform(min, max)
         if self._mode_datadirty == True:
             return self.of([int(number), str(number), float(number)])
 
         return number
 
-    def negativeFloat(self, min: int = -9999, max=0) -> int:
+    def negativeFloat(self, min: int = -9999, max=0) -> float:
         number: float = random.uniform(min, max)
 
         if self._mode_datadirty == True:
@@ -68,7 +68,7 @@ class Any():
 
         return number
 
-    def anyFloat(self, min=-1000, max=1000) -> int:
+    def anyFloat(self, min=-1000, max=1000) -> float:
         number: float = random.uniform(min, max)
         if self._mode_datadirty == True:
             return self.of([int(number), str(number), float(number)])
@@ -84,7 +84,8 @@ class Any():
         return letter
 
     def word(self, min = 1, max = 30) -> str:
-        length = int(self.positiveInt(min, max))
+        length = random.randrange(min, max)
+
         alphabet = [chr(i) for i in range(ord('a'), ord('z') + 1)]
 
         word = ''.join(random.choice(alphabet) for i in range(length))
@@ -95,7 +96,8 @@ class Any():
         return word
 
     def sentence(self, min_words: int = 2, max_words: int = 5) -> str:
-        amount_words = self.positiveInt(min=min_words, max=max_words)
+        amount_words = random.randrange(min_words, max_words)
+
         words=[]
         for i in range(amount_words):
             words.append(self.word())

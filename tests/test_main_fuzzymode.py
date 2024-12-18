@@ -3,7 +3,7 @@ import random
 
 from main import Any
 
-any = Any(fuzzy_mode=True)
+any = Any(mode_datadirty=True)
 def test_positiveNumber():
 
     def createData():
@@ -42,6 +42,12 @@ def test_null():
 def test_word():
     result1 = any.word()
     result2 = any.word()
+    print(result1) # "ekm"
+    print(result2) # " mpxeotfwfxvfnxcagglpk"
+
+def test_sentence():
+    result1 = any.sentence()
+    result2 = any.sentence()
     print(result1) # "ekm"
     print(result2) # " mpxeotfwfxvfnxcagglpk"
 
