@@ -14,7 +14,7 @@ class Any():
 
     def listOf(self, min, max, factoryFunction):
         result = []
-        amount = int(self.positiveNumber(min, max))
+        amount = int(self.positiveInt(min, max))
         for i in range(0, amount):
             data = factoryFunction()
             result.append(data)
@@ -28,30 +28,52 @@ class Any():
         if max == None or max > len(items):
             max=len(items)-1
 
-        amount_to_get = int(self.positiveNumber(min=min, max=max))
+        amount_to_get = int(self.positiveInt(min=min, max=max))
         return items_randomized[:amount_to_get]
 
-    def positiveNumber(self, min: int = 0, max=9999) -> int:
-        number=random.randrange(min, max)
+    def positiveInt(self, min: int = 0, max=9999) -> int:
+        number: float =random.uniform(min, max)
+        if self._mode_datadirty == True:
+            return self.of([int(number), str(number), float(number)])
+
+        return int(number)
+
+    def negativeInt(self, min: int = -9999, max=0) -> int:
+        number: float = random.uniform(min, max)
+
+        if self._mode_datadirty == True:
+            return self.of([int(number), str(number), float(number)])
+
+        return int(number)
+
+    def anyInt(self, min=-1000, max=1000) -> int:
+        number: float = random.uniform(min, max)
+        if self._mode_datadirty == True:
+            return self.of([int(number), str(number), float(number)])
+
+        return int(number)
+
+    def positiveFloat(self, min: int = 0, max=9999) -> int:
+        number: float =random.uniform(min, max)
         if self._mode_datadirty == True:
             return self.of([int(number), str(number), float(number)])
 
         return number
 
-    def negativeNumber(self, min: int = -9999, max=0) -> int:
-        number = random.randrange(min, max)
+    def negativeFloat(self, min: int = -9999, max=0) -> int:
+        number: float = random.uniform(min, max)
 
         if self._mode_datadirty == True:
             return self.of([int(number), str(number), float(number)])
 
         return number
 
-    def anyNumber(self, min=-1000, max=1000) -> int:
-        result = random.randrange(min, max)
+    def anyFloat(self, min=-1000, max=1000) -> int:
+        number: float = random.uniform(min, max)
         if self._mode_datadirty == True:
-            return self.of([int(result), str(result), float(result)])
+            return self.of([int(number), str(number), float(number)])
 
-        return result
+        return number
 
     def anyLetter(self) -> str:
         letter = self.of(list(string.ascii_lowercase))
@@ -62,7 +84,7 @@ class Any():
         return letter
 
     def word(self, min = 1, max = 30) -> str:
-        length = int(self.positiveNumber(min, max))
+        length = int(self.positiveInt(min, max))
         alphabet = [chr(i) for i in range(ord('a'), ord('z') + 1)]
 
         word = ''.join(random.choice(alphabet) for i in range(length))
@@ -73,7 +95,7 @@ class Any():
         return word
 
     def sentence(self, min_words: int = 1, max_words: int = 5) -> str:
-        amount_words = self.positiveNumber(min=min_words, max=max_words)
+        amount_words = self.positiveInt(min=min_words, max=max_words)
         words=[]
         for i in range(amount_words):
             words.append(Any.word())
@@ -103,24 +125,24 @@ class Any():
 
     def dateTimeInPast(self) -> datetime:
         now = datetime.now()
-        return now - timedelta(days = int(self.positiveNumber()))
+        return now - timedelta(days = int(self.positiveInt()))
 
 
     def dateTimeInFuture(self) -> datetime:
         now = datetime.now()
-        return now + timedelta(days=int(self.positiveNumber()))
+        return now + timedelta(days=int(self.positiveInt()))
 
     def dateTimeBefore(self, beforeDateTime) -> datetime:
         if isinstance(beforeDateTime, str):
             beforeDateTime = parse(beforeDateTime, fuzzy=True)
 
-        return beforeDateTime - timedelta(days=int(self.positiveNumber()))
+        return beforeDateTime - timedelta(days=int(self.positiveInt()))
 
     def dateTimeAfter(self, afterDateTime) -> datetime:
         if isinstance(afterDateTime, str):
             afterDateTime = parse(afterDateTime, fuzzy=True)
 
-        return afterDateTime + timedelta(days=int(self.positiveNumber()))
+        return afterDateTime + timedelta(days=int(self.positiveInt()))
 
     def datetimeBetween(self, from_datetime, to_datetime) -> datetime:
         if isinstance(from_datetime, str):
@@ -132,7 +154,7 @@ class Any():
         from_datetime_ts = from_datetime.timestamp()
         to_datetime_ts = to_datetime.timestamp()
 
-        random_ts_between = int(self.positiveNumber(min=from_datetime_ts, max=to_datetime_ts))
+        random_ts_between = int(self.positiveInt(min=from_datetime_ts, max=to_datetime_ts))
 
         return datetime.fromtimestamp(random_ts_between)
 

@@ -8,7 +8,7 @@ any = Any()
 def test_positiveNumber():
     def createData():
         return {
-            "age": any.positiveNumber(),
+            "age": any.positiveInt(),
             "name": any.word()
         }
 
@@ -25,6 +25,10 @@ def test_positiveNumber():
     #     {'age': 9656, 'name': 'ojizqxl'}
     # ]
 
+
+def test_anyFloat():
+    result = any.anyFloat()
+    print(result) # -520.9585233638023
 
 def test_subsetOf():
     result = any.subsetOf(min=1, max=4, items=["a", "b", "c", "d", "e", "f"])

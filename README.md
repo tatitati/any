@@ -47,30 +47,31 @@ Graba reduce all this "specification noise", so you focus on the properties that
 ```python
 from graba.main import Any
 
+
 def test_user_can_delete_post():
-  any = Any()
-  
-  user = User(
-    id=         any.positiveNumber(),
-    firstname=  any.word(),
-    email=      any.email(),
-    mobile=     any.mobile(),
-    role=       any.of(["admin", "user"]),
-    city=       any.word(),
-    enable=     True,
-    department= any.of([None, "administration", "management"])
-  )
-  
-  post = Post(
-    id=         any.positiveNumber(),
-    owner=      user,
-    content=    any.sentence()
-    showed=     any.boolean()
-  )
-  
-  service_post.delete(post)
-  
-  assert None == service_post.find_post(id=post.id)
+    any = Any()
+
+    user = User(
+        id=any.positiveInt(),
+        firstname=any.word(),
+        email=any.email(),
+        mobile=any.mobile(),
+        role=any.of(["admin", "user"]),
+        city=any.word(),
+        enable=True,
+        department=any.of([None, "administration", "management"])
+    )
+
+    post = Post(
+        id=any.positiveInt(),
+        owner=user,
+        content=any.sentence()
+    showed = any.boolean()
+    )
+
+    service_post.delete(post)
+
+    assert None == service_post.find_post(id=post.id)
 ```
 
 This makes clear a few things:
@@ -100,15 +101,15 @@ class BuilderUser:
 
     def __init__(self):
         any = Any()
-      	self.id=any.positiveNumber()
-        self.email=any.email()
-        self.created_at=any.dateTime()
-        self.email=any.email()
-        self.email_confirmed=any.bool()
-        self.role=any.of(["admin", "user", "manager"])
-        self.department=any.of([None, "management", "administration"])
-        
-    def build(self)->User:
+        self.id = any.positiveInt()
+        self.email = any.email()
+        self.created_at = any.dateTime()
+        self.email = any.email()
+        self.email_confirmed = any.bool()
+        self.role = any.of(["admin", "user", "manager"])
+        self.department = any.of([None, "management", "administration"])
+
+    def build(self) -> User:
         return User(
             id=self.id,
             email=self.email,
@@ -119,28 +120,28 @@ class BuilderUser:
         )
 
     def admin(self):
-      	# now you can see how builder explain different types of initializing things in your applications
+        # now you can see how builder explain different types of initializing things in your applications
         # in this case, we explain that an admin is using admin role, but also is working in administration department
-        self.role="admin"
+        self.role = "admin"
         self.department = "administration"
         return self
 
     def user(self):
-        self.role="user"
+        self.role = "user"
         self.department = None
         return self
 
     def manager(self):
-        self.role="manager"
+        self.role = "manager"
         self.department = "management"
         return self
 
     def withEmail(self, email):
-        self.email=email
+        self.email = email
         return self
 
     def withCreatedAt(self, created_at):
-        self.created_at=created_at
+        self.created_at = created_at
         return self
 
     def withEmailConfirmed(self):
@@ -150,19 +151,20 @@ class BuilderUser:
     def withEmailNotConfirmed(self):
         self.email_confirmed = False
         return self
-      
+
+
 class BuilderPost:
 
     def __init__(self):
         any = Any()
-        self.id=any.email()
-        self.owner=BuilderUser().build()
-        self.content=any.sentene()
-        self.showed=any.bool()
-        
+        self.id = any.email()
+        self.owner = BuilderUser().build()
+        self.content = any.sentene()
+        self.showed = any.bool()
+
     def with_owner(self, owner: User):
-      self.owner= user
-      return self
+        self.owner = user
+        return self
 ```
 
 Then in your tests you use this builder like:
@@ -193,9 +195,10 @@ You can generate controlled random list of objects:
 ```python
 any = Any()
 
+
 def createData():
     return {
-        "age": any.positiveNumber(),
+        "age": any.positiveInt(),
         "name": any.word()
     }
 
@@ -242,30 +245,31 @@ As an example of working with fuzzy mode you can do:
 ```python
 from graba.main import Any
 
+
 def test_user_can_delete_post():
-    any = Any(mode_datadirty=True) # <--- IMPORTANT LINE
+    any = Any(mode_datadirty=True)  # <--- IMPORTANT LINE
 
     user = User(
-        id=         any.positiveNumber(), # This might be one of: 23, "23", "23.0"
-        firstname=  any.word(),           # This might be one of: " MYword", "MYword", "MYword ", ...
-        email=      any.email(),           
-        mobile=     any.mobile(),
-        role=       any.of(["admin", "user"]),
-        city=       any.word(),
-        enable=     True,
-        department= any.of([None, "administration", "management"])
+        id=any.positiveInt(),  # This might be one of: 23, "23", "23.0"
+        firstname=any.word(),  # This might be one of: " MYword", "MYword", "MYword ", ...
+        email=any.email(),
+        mobile=any.mobile(),
+        role=any.of(["admin", "user"]),
+        city=any.word(),
+        enable=True,
+        department=any.of([None, "administration", "management"])
     )
 
     post = Post(
-        id=         any.positiveNumber(),   # This might be one of: 34, "34", "34.0"
-        owner=      user,
-        content=    any.sentence(),
-        showed=     any.boolean()           # This might be one of: "true", True, "True", 1
+        id=any.positiveInt(),  # This might be one of: 34, "34", "34.0"
+        owner=user,
+        content=any.sentence(),
+        showed=any.boolean()  # This might be one of: "true", True, "True", 1
     )
 
     service_post.delete(post)
 
-    service_post.find_post(id=post.id) # exception!!!!, post.id is not an integer
+    service_post.find_post(id=post.id)  # exception!!!!, post.id is not an integer
 ```
 
 In this case, fuzzy_mode will teach that might be interesting to check some values in the id and possibly make a proper test. This is

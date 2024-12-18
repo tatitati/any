@@ -8,7 +8,7 @@ def test_positiveNumber():
 
     def createData():
         return {
-            "age": any.positiveNumber(),
+            "age": any.positiveInt(),
             "name": any.word()
         }
 
