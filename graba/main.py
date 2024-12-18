@@ -105,13 +105,13 @@ class Any():
     def bool(self) -> bool:
         boolean = self.of([True, False])
         if self._fuzzy_mode == True:
-            return self.of([boolean, "true", "True", 1, "false", "False", 0])
+            return self.of([boolean, "true", "True", "false", "False"])
 
         return boolean
 
-    def null(self):
+    def null(self) -> None:
         if self._fuzzy_mode == True:
-            return self.of([None, "None", "none", "null"])
+            return self.of([None, "None", "null"])
 
         return None
 
