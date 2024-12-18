@@ -5,8 +5,8 @@ from dateutil.parser import parse
 
 class Any():
 
-    def __init__(self, fuzzy_mode: bool=False):
-        self._fuzzy_mode = fuzzy_mode
+    def __init__(self, mode_datadirty: bool=False):
+        self._mode_datadirty = mode_datadirty
 
     def of(self, options: list):
         return random.choice(options)
@@ -33,7 +33,7 @@ class Any():
 
     def positiveNumber(self, min: int = 0, max=9999) -> int:
         number=random.randrange(min, max)
-        if self._fuzzy_mode == True:
+        if self._mode_datadirty == True:
             return self.of([int(number), str(number), float(number)])
 
         return number
@@ -41,14 +41,14 @@ class Any():
     def negativeNumber(self, min: int = -9999, max=0) -> int:
         number = random.randrange(min, max)
 
-        if self._fuzzy_mode == True:
+        if self._mode_datadirty == True:
             return self.of([int(number), str(number), float(number)])
 
         return number
 
     def anyNumber(self, min=-1000, max=1000) -> int:
         result = random.randrange(min, max)
-        if self._fuzzy_mode == True:
+        if self._mode_datadirty == True:
             return self.of([int(result), str(result), float(result)])
 
         return result
@@ -56,7 +56,7 @@ class Any():
     def anyLetter(self) -> str:
         letter = self.of(list(string.ascii_lowercase))
 
-        if self._fuzzy_mode == True:
+        if self._mode_datadirty == True:
             return self.of([f" {letter}", letter, f"{letter} ", f" {letter} "])
 
         return letter
@@ -67,7 +67,7 @@ class Any():
 
         word = ''.join(random.choice(alphabet) for i in range(length))
 
-        if self._fuzzy_mode == True:
+        if self._mode_datadirty == True:
             return self.of([f" {word}", word, f"{word} ", f" {word} "])
 
         return word
@@ -89,13 +89,13 @@ class Any():
 
     def bool(self) -> bool:
         boolean = self.of([True, False])
-        if self._fuzzy_mode == True:
+        if self._mode_datadirty == True:
             return self.of([boolean, "true", "True", "false", "False"])
 
         return boolean
 
     def null(self) -> None:
-        if self._fuzzy_mode == True:
+        if self._mode_datadirty == True:
             return self.of([None, "None", "null"])
 
         return None
