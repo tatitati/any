@@ -46,16 +46,12 @@ class Any():
 
         return number
 
-    def anyNumber(self) -> int:
-        return self.of([self.positiveNumber(), self.negativeNumber()])
-
-    def rating(self) -> int:
-        number = self.positiveNumber(min=0, max=5)
-
+    def anyNumber(self, min=-1000, max=1000) -> int:
+        result = random.randrange(min, max)
         if self._fuzzy_mode == True:
-            return self.of([int(number), str(number), float(number)])
+            return self.of([int(result), str(result), float(result)])
 
-        return number
+        return result
 
     def anyLetter(self) -> str:
         letter = self.of(list(string.ascii_lowercase))
@@ -84,23 +80,12 @@ class Any():
 
         sentence = ' '.join(words)
 
-        if self._fuzzy_mode == True:
-            return self.of([f" {sentence}", sentence, f"{sentence} ", f" {sentence} "])
-
         return sentence
 
     def bytes(self, min=1, max=30) -> bytes:
         word = self.word(min, max)
         return word.encode('UTF-8')
 
-
-    def url(self, min=1, max=4) -> str:
-        length = self.positiveNumber(min, max)
-        words = []
-        for i in range(length):
-            words.append(Any.word())
-
-        return "http://www/"+'.'.join(words)
 
     def bool(self) -> bool:
         boolean = self.of([True, False])
@@ -156,19 +141,3 @@ class Any():
 
     def date(self) -> date:
         return self.dateTime().date()
-
-    def latitude(self, min: int = None, max: int = None) -> str:
-        min=-90 if min == None else min
-        max=90  if max == None else max
-        decimal_places = 4
-        random_lat = random.uniform(min, max)
-
-        return f"{round(random_lat, decimal_places)}"
-
-    def longitude(self, min: int = None, max: int = None) -> str:
-        min = -180 if min == None else min
-        max =  180 if max == None else max
-        decimal_places = 4
-        random_lat = random.uniform(min, max)
-
-        return f"{round(random_lat, decimal_places)}"
