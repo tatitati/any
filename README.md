@@ -234,7 +234,7 @@ result = any().datetimeBetween("2023-10-10", "2027-09-09")
 print(result) # 2025-08-10 22:00:19
 ```
 
-# Being realistic: Fuzzy mode
+# Being realistic: working with "data is dirty" mode
 
 Let's be honest. In real life you cannot expect to recieve all the data "clean". Sometimes you receive a number or a boolean as string, others your
 strings are not trimmed, others your null are not consisten so you might receive "null", None, "none", etc.
@@ -250,9 +250,9 @@ def test_user_can_delete_post():
     any = Any(mode_datadirty=True)  # <--- IMPORTANT LINE
 
     user = User(
-        id=any.positiveInt(),  # This might be one of: 23, "23", "23.0"
+        id=any.positiveInt(),  # This might be one of: 23, "23"
         firstname=any.word(),  # This might be one of: " MYword", "MYword", "MYword ", ...
-        email=any.email(),
+        email=any.word(),
         mobile=any.mobile(),
         role=any.of(["admin", "user"]),
         city=any.word(),
@@ -261,10 +261,10 @@ def test_user_can_delete_post():
     )
 
     post = Post(
-        id=any.positiveInt(),  # This might be one of: 34, "34", "34.0"
+        id=any.positiveInt(),  # This might be one of: 34, "34"
         owner=user,
         content=any.sentence(),
-        showed=any.boolean()  # This might be one of: "true", True, "True", 1
+        showed=any.boolean()  # This might be one of: "true", True, "True"
     )
 
     service_post.delete(post)
