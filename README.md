@@ -243,7 +243,7 @@ As an example of working with fuzzy mode you can do:
 from graba.main import Any
 
 def test_user_can_delete_post():
-    any = Any(fuzzy_mode=True) # <--- IMPORTANT LINE
+    any = Any(mode_datadirty=True) # <--- IMPORTANT LINE
 
     user = User(
         id=         any.positiveNumber(), # This might be one of: 23, "23", "23.0"
