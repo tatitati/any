@@ -250,7 +250,7 @@ def test_user_can_delete_post():
     any = Any(mode_datadirty=True)  # <--- IMPORTANT LINE
 
     user = User(
-        id=any.positiveInt(),  # This might be one of: 23, "23"
+        id=any.positiveInt(),  # This might be one of: 23, "23", "23.34", 23.45
         firstname=any.word(),  # This might be one of: " MYword", "MYword", "MYword ", ...
         email=any.word(),
         mobile=any.mobile(),
