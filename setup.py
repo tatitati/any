@@ -16,4 +16,7 @@ setup(
         "Operating System :: OS Independent",
     ],
     python_requires=">=3.6",
+    install_requires=[
+        "python-dateutil>=2.8.2",
+    ],
 )
