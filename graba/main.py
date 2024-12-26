@@ -191,3 +191,29 @@ class Any():
 
     def date(self) -> date:
         return self.dateTime().date()
+
+    def ip(self) -> str:
+        pass
+
+    def filepath(self) -> str:
+        extension=self.of(options=[
+            "csv","pdf", "json", "xml", "png", "jpg", "parquet", "avro", "zip", "rar", "gzp"
+        ])
+
+        min_words=2
+        max_words=8
+        amount_words = random.randrange(min_words, max_words)
+
+        words=[]
+        for i in range(amount_words):
+            words.append(self.word(min=1, max=7))
+
+        sentence = '/'.join(words)
+
+        path= sentence
+
+        return f"{path}.{extension}"
+
+
+    def email(self) -> str:
+        pass
