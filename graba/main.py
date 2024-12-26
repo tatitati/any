@@ -32,6 +32,17 @@ class Any():
         items_randomized = random.sample(items, len(items))
         return items_randomized[:amount_to_get] # grab X first elements
 
+    def digits(self, min: int, max: int) -> int:
+        if min == max:
+            number= min
+        else:
+            number: int =random.randrange(min, max)
+
+        return random.randint(
+            10**(number-1),
+            10**number-1
+        )
+
     def positiveInt(self, min: int = 0, max=9999) -> int:
         number: int =random.randrange(min, max)
         if self._mode_datadirty == True:
@@ -75,30 +86,6 @@ class Any():
             return self.of([number, str(number)])
 
         return number
-
-
-    def positiveNumber(self, min: int = 0, max: int =9999) -> float:
-        number: float =random.uniform(min, max)
-        if self._mode_datadirty == True:
-            return self.of([number, str(number), str(int(number), int(number))])
-
-        return number
-
-    def negativeNumber(self, min: int = -9999, max: int =0) -> float:
-        number: float = random.uniform(min, max)
-
-        if self._mode_datadirty == True:
-            return self.of([number, str(number), str(int(number), int(number))])
-
-        return number
-
-    def anyNumber(self, min =-1000, max =1000) -> float:
-        number: float = random.uniform(min, max)
-        if self._mode_datadirty == True:
-            return self.of([number, str(number), str(int(number), int(number))])
-
-        return number
-
 
 
     def anyLetter(self) -> str:

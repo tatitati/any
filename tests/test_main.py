@@ -65,3 +65,7 @@ def test_filepath():
 
 def test_email():
     print(any.email()) # fivjby@fgs.es
+
+def test_digits():
+    print(any.digits(min=3, max=7)) # 53081
+    print(any.digits(min=8, max=8)) # 64746287
