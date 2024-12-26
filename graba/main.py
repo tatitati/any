@@ -181,10 +181,10 @@ class Any():
 
     def ip(self) -> str:
         ip = [
-            str(self.positiveInt(min=100, max=255)),
-            str(self.positiveInt(min=100, max=255)),
-            str(self.positiveInt(min=100, max=255)),
-            str(self.positiveInt(min=100, max=255))
+            str(self.positiveInt(min=10, max=255)),
+            str(self.positiveInt(min=10, max=255)),
+            str(self.positiveInt(min=10, max=255)),
+            str(self.positiveInt(min=10, max=255))
         ]
 
         return ".".join(ip)
