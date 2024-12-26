@@ -57,11 +57,11 @@ def test_datetimebetween():
     print(result) # 2025-08-10 22:00:19
 
 def test_ip():
-    pass
+    print(any.ip()) # 250.127.163.208
 
 
 def test_filepath():
     print(any.filepath()) # d/gfv/mctk/yjgz.pdf
 
 def test_email():
-    pass
+    print(any.email()) # fivjby@fgs.es

@@ -193,7 +193,15 @@ class Any():
         return self.dateTime().date()
 
     def ip(self) -> str:
-        pass
+        ip = [
+            str(self.positiveInt(min=100, max=255)),
+            str(self.positiveInt(min=100, max=255)),
+            str(self.positiveInt(min=100, max=255)),
+            str(self.positiveInt(min=100, max=255))
+        ]
+
+        return ".".join(ip)
+
 
     def filepath(self) -> str:
         extension=self.of(options=[
@@ -216,4 +224,5 @@ class Any():
 
 
     def email(self) -> str:
-        pass
+        extension = self.of(["es", "com", "net", "co.uk"])
+        return f"{self.word()}@{self.word()}.{extension}"
