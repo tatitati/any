@@ -211,5 +211,5 @@ class Any():
 
 
     def email(self) -> str:
-        extension = self.of(["es", "com", "net", "co.uk"])
+        extension = self.of(["es", "com", "net", "co.uk", "io"])
         return f"{self.word()}@{self.word()}.{extension}"
