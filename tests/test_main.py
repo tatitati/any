@@ -1,5 +1,6 @@
 from datetime import datetime
 import random
+from typing import Optional
 
 from main import Any
 
@@ -78,11 +79,13 @@ def test_object_like():
             self.brand = brand
 
     class Person:
-        def __init__(self, age: int, name: str, is_alive: bool, car: Car):
+        def __init__(self, age: int, name: str, car: Car, is_alive: Optional[bool] = True, is_old: bool=True):
             self.age = age
             self.name = name
             self.is_alive = is_alive
+            self.is_old = is_old
             self.car = car
+
 
 
     result: Person = any.object_like(Person)

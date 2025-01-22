@@ -1,5 +1,6 @@
 import random
 import string
+import typing
 from datetime import date, datetime, timedelta
 from dateutil.parser import parse
 
@@ -215,23 +216,41 @@ class Any():
         return f"{self.word()}@{self.word()}.{extension}"
 
     def object_like(self, class_of_interest):
-        metadata = class_of_interest.__init__.__annotations__
+        import inspect
+        from typing import Optional, get_origin, get_args
+        def get_type(annotation):
+            if get_origin(annotation) == typing.Union: # Check if the annotation is Optional
+                args = get_args(annotation)
+                return args[0] # Get the arguments of Optional
+            else:
+                return annotation
+
+        signature = inspect.signature(class_of_interest.__init__)
+        parameters = signature.parameters
+
+        metadata = {}
+        for name, param in parameters.items():
+            if name != 'self':
+                metadata[name] = {
+                    'type': get_type(param.annotation),
+                    'default': param.default if param.default != inspect.Parameter.empty else None
+                }
 
         values = {}
-        for key in metadata.keys():
-            if metadata[key] == int:
-                values[key] = self.anyInt()
-            elif metadata[key] == float:
-                values[key] = self.anyFloat()
-            elif metadata[key] == str:
-                values[key] = self.word()
-            elif metadata[key] == datetime:
-                values[key] = self.dateTime()
-            elif metadata[key] == date:
-                values[key] = self.date()
-            elif metadata[key] == bool:
-                values[key] = self.bool()
+        for name in metadata.keys():
+            if metadata[name]['type'] == int:
+                values[name] = self.anyInt()
+            elif metadata[name]['type'] == float:
+                values[name] = self.anyFloat()
+            elif metadata[name]['type']  == str:
+                values[name] = self.word()
+            elif metadata[name]['type'] == datetime:
+                values[name] = self.dateTime()
+            elif metadata[name]['type'] == date:
+                values[name] = self.date()
+            elif metadata[name]['type']  == bool:
+                values[name] = self.bool()
             else:
-                values[key] = self.object_like(metadata[key])
+                values[name] = self.object_like(metadata[name]["type"])
 
         return class_of_interest(**values)
