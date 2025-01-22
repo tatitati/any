@@ -71,14 +71,25 @@ def test_digits():
     print(any.digits(min=8, max=8)) # 64746287
 
 def test_object_like():
+    class Car:
+        def __init__(self, color: str, engine_capacity: int, brand: str):
+            self.color = color
+            self.engine_capacity = engine_capacity
+            self.brand = brand
+
     class Person:
-        def __init__(self, age: int, name: str, is_alive: bool):
+        def __init__(self, age: int, name: str, is_alive: bool, car: Car):
             self.age = age
             self.name = name
             self.is_alive = is_alive
+            self.car = car
+
 
     result: Person = any.object_like(Person)
 
     print(result.age)
     print(result.name)
     print(result.is_alive)
+    print(result.car.color)
+    print(result.car.brand)
+    print(result.car.engine_capacity)

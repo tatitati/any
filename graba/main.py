@@ -221,15 +221,17 @@ class Any():
         for key in metadata.keys():
             if metadata[key] == int:
                 values[key] = self.anyInt()
-            if metadata[key] == float:
+            elif metadata[key] == float:
                 values[key] = self.anyFloat()
-            if metadata[key] == str:
+            elif metadata[key] == str:
                 values[key] = self.word()
-            if metadata[key] == datetime:
+            elif metadata[key] == datetime:
                 values[key] = self.dateTime()
-            if metadata[key] == date:
+            elif metadata[key] == date:
                 values[key] = self.date()
-            if metadata[key] == bool:
+            elif metadata[key] == bool:
                 values[key] = self.bool()
+            else:
+                values[key] = self.object_like(metadata[key])
 
         return class_of_interest(**values)
