@@ -69,3 +69,15 @@ def test_email():
 def test_digits():
     print(any.digits(min=3, max=7)) # 53081
     print(any.digits(min=8, max=8)) # 64746287
+
+def test_object_like():
+    class Person:
+        def __init__(self, age: int, name: str, is_alive: bool):
+            self.age = age
+            self.name = name
+            self.is_alive = is_alive
+
+    result: Person = any.object_like(Person)
+    print(result.age)
+    print(result.name)
+    print(result.is_alive)

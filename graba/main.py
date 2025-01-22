@@ -213,3 +213,23 @@ class Any():
     def email(self) -> str:
         extension = self.of(["es", "com", "net", "co.uk", "io"])
         return f"{self.word()}@{self.word()}.{extension}"
+
+    def object_like(self, class_of_interest):
+        metadata = class_of_interest.__init__.__annotations__
+
+        values = {}
+        for key in metadata.keys():
+            if metadata[key] == int:
+                values[key] = self.anyInt()
+            if metadata[key] == float:
+                values[key] = self.anyFloat()
+            if metadata[key] == str:
+                values[key] = self.word()
+            if metadata[key] == datetime:
+                values[key] = self.dateTime()
+            if metadata[key] == date:
+                values[key] = self.date()
+            if metadata[key] == bool:
+                values[key] = self.bool()
+
+        return class_of_interest(**values)
