@@ -78,6 +78,7 @@ def test_object_like():
             self.is_alive = is_alive
 
     result: Person = any.object_like(Person)
+
     print(result.age)
     print(result.name)
     print(result.is_alive)
