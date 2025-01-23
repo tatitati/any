@@ -79,15 +79,15 @@ def test_object_like():
     class Person:
         def __init__(self,
                      colors: List[str],
-                     # name: Optional[str] = "asdf",
-                     # age: int = None,
+                     name: Optional[str] = "asdf",
+                     age: int = None,
                      # car: Car,
                      # is_alive: Optional[bool] = True,
                      # is_old: bool=True
                      ):
             self.colors = colors
-            # self.name = name
-            # self.age = age
+            self.name = name
+            self.age = age
             # self.is_alive = is_alive
             # self.is_old = is_old
             # self.car = car

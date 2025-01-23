@@ -259,8 +259,7 @@ class Any():
                 nested_type = get_args(param_annotation)[0]
                 return create_value(nested_type, param_default)
 
-            elif typing.get_origin(param_annotation) is typing.List:
-                print("is a list")
+            elif typing.get_origin(param_annotation) is list:
                 nested_type = get_args(param_annotation)[0]
 
                 values = []
