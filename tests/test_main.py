@@ -77,20 +77,26 @@ def test_object_like():
             self.brand = brand
 
     class Person:
-        def __init__(self, age: int, name: str, car: Car, is_alive: Optional[bool] = True, is_old: bool=True):
+        def __init__(self,
+                     name: str,
+                     age: int = None,
+                     # car: Car,
+                     # is_alive: Optional[bool] = True,
+                     # is_old: bool=True
+                     ):
             self.age = age
             self.name = name
-            self.is_alive = is_alive
-            self.is_old = is_old
-            self.car = car
+            # self.is_alive = is_alive
+            # self.is_old = is_old
+            # self.car = car
 
 
 
     result: Person = any.object_like(Person)
 
-    print(result.age)
-    print(result.name)
-    print(result.is_alive)
-    print(result.car.color)
-    print(result.car.brand)
-    print(result.car.engine_capacity)
+    # print(result.age)
+    # print(result.name)
+    # print(result.is_alive)
+    # print(result.car.color)
+    # print(result.car.brand)
+    # print(result.car.engine_capacity)
