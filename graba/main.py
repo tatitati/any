@@ -266,7 +266,9 @@ class Any():
                 for i in range(0, self.positiveInt(min=0, max=4)):
                     values.append(create_value(nested_type, param_default))
 
-                return values
+                if param_default == inspect.Parameter.empty:
+                    return values
+                return self.of(values, param_default)
 
             # composite values
             # ---------------
