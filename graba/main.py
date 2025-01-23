@@ -217,84 +217,68 @@ class Any():
 
     def object_like(self, class_of_interest):
         import inspect
-        from typing import get_origin, get_args
-
-        # def get_type(annotation):
-        #     if get_origin(annotation) == typing.Union: # Check if the annotation is Optional
-        #         args = get_args(annotation)
-        #         return args[0] # Get the arguments of Optional
-        #     else:
-        #         return annotation
+        from typing import get_args
 
         parameters = inspect.signature(class_of_interest.__init__).parameters
 
-
-        #
-        # metadata[name] = {
-        #     'type': get_type(param.annotation),
-        #     'default': param.default if param.default != inspect.Parameter.empty else None
-        # }
-
         param_values = {}
+
+        def create_value(param_annotation, param_default):
+            if param_annotation == int:
+                if param_default == inspect.Parameter.empty:  # no default value
+                    return self.anyInt()
+                return self.of([self.anyInt(), param_default])
+
+
+            elif param_annotation == float:
+                if param_default == inspect.Parameter.empty:
+                    return self.anyFloat()
+                return self.of([self.anyFloat(), param_default])
+
+            elif param_annotation == str:
+                if param_default == inspect.Parameter.empty:
+                    return self.word()
+                return self.of([self.word(), param_default])
+
+            elif param_annotation == bool:
+                if param_default == inspect.Parameter.empty:
+                    return self.bool()
+                return self.of([self.bool(), param_default])
+
+            elif param_annotation == datetime:
+                if param_default == inspect.Parameter.empty:
+                    return self.dateTime()
+                return self.of([self.dateTime(), param_default])
+
+            elif param_annotation == date:
+                if param_default == inspect.Parameter.empty:
+                    return self.date()
+                return  self.of([self.date(), param_default])
+
+            elif typing.get_origin(param_annotation) is typing.Union:
+                nested_type = get_args(param_annotation)[0]
+                return create_value(nested_type, param_default)
+
+            elif typing.get_origin(param_annotation) is typing.List:
+                print("is a list")
+                nested_type = get_args(param_annotation)[0]
+
+                values = []
+                for i in range(0, self.positiveInt(min=0, max=4)):
+                    values.append(create_value(nested_type, param_default))
+
+                return values
+
+            # composite values
+            # ---------------
+            else:
+                return self.object_like(param_annotation)
 
         for param_name, param_type in parameters.items():
             if param_name != "self":
-                param_annotation=param_type.annotation
-                param_default = param_type.default
+                param_values[param_name] = create_value(
+                    param_type.annotation,
+                    param_type.default
+                )
 
-                print("=====")
-                print(param_name)
-                print(param_annotation)
-
-
-                if param_annotation == int:
-                    if param_default == inspect.Parameter.empty:            # no default value
-                        value = self.anyInt()
-                    else:                                                   #  default value
-                        value = self.of([self.anyInt(), param_default])
-                    param_values[param_name] = value
-
-                elif param_annotation == float:
-                    if param_default == inspect.Parameter.empty:
-                        value = self.anyFloat()
-                    else:
-                        value = self.of([self.anyFloat(), param_default])
-                    param_values[param_name] = value
-
-                elif param_annotation  == str:
-                    if param_default == inspect.Parameter.empty:
-                        value = self.word()
-                    else:
-                        value = self.of([self.word(), param_default])
-                    param_values[param_name] = value
-
-                elif param_annotation  == bool:
-                    if param_default == inspect.Parameter.empty:
-                        value = self.bool()
-                    else:
-                        value = self.of([self.bool(), param_default])
-                    param_values[param_name] = value
-
-                elif param_annotation == datetime:
-                    if param_default == inspect.Parameter.empty:
-                        value = self.dateTime()
-                    else:
-                        value = self.of([self.dateTime(), param_default])
-                    param_values[param_name] = value
-
-                elif param_annotation == date:
-                    if param_default == inspect.Parameter.empty:
-                        value = self.date()
-                    else:
-                        value = self.of([self.date(), param_default])
-                    param_values[param_name] = value
-
-                elif param_annotation  == typing.List:
-                    nested_type = get_args(param_annotation)[0]
-                elif param_annotation  == typing.Union:
-                    nested_type = get_args(param_annotation)[0]
-                else:
-                    nested_type = get_args(param_annotation)[0]
-                    # param_values[param_name] = self.object_like(metadata[name]["type"])
-    
         return class_of_interest(**param_values)

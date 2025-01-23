@@ -1,5 +1,5 @@
 from datetime import datetime
-from typing import Optional
+from typing import Optional, List
 
 from graba.main import Any
 
@@ -78,14 +78,16 @@ def test_object_like():
 
     class Person:
         def __init__(self,
-                     name: str,
-                     age: int = None,
+                     colors: List[str],
+                     # name: Optional[str] = "asdf",
+                     # age: int = None,
                      # car: Car,
                      # is_alive: Optional[bool] = True,
                      # is_old: bool=True
                      ):
-            self.age = age
-            self.name = name
+            self.colors = colors
+            # self.name = name
+            # self.age = age
             # self.is_alive = is_alive
             # self.is_old = is_old
             # self.car = car
@@ -94,8 +96,10 @@ def test_object_like():
 
     result: Person = any.object_like(Person)
 
-    # print(result.age)
-    # print(result.name)
+
+    print(result.colors)
+    print(result.name)
+    print(result.age)
     # print(result.is_alive)
     # print(result.car.color)
     # print(result.car.brand)
