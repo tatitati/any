@@ -98,4 +98,7 @@ def test_object_like():
 
     result: Person = any.object_like(Person)
 
-    print(result)
+    print(result.colors)
+    print(result.name)
+    print(result.age)
+    print(result.car)
