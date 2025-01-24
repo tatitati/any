@@ -76,29 +76,27 @@ def test_object_like():
             self.engine_capacity = engine_capacity
             self.brand = brand
 
-        def __str__(self):
+        def __repr__(self):
             return f"Car(color='{self.color}', engine_capacity='{self.engine_capacity}', brand='{self.brand}')"
 
     class Person:
         def __init__(self,
                      colors: List[str],
-                     car: Car,
+                     cars: List[Car],
                      name: Optional[str] = "asdf",
                      age: int = None,
                  ):
             self.colors = colors
             self.name = name
             self.age = age
-            self.car = car
+            self.cars = cars
 
-        def __str__(self):
-            return f"Person(colors='{self.colors}', name='{self.name}', age='{self.age}', car='{self.car}')"
-
-
+        def __repr__(self):
+            return f"Person(colors='{self.colors}', name='{self.name}', age='{self.age}', cars='{self.cars}')"
 
     result: Person = any.object_like(Person)
 
     print(result.colors)
     print(result.name)
     print(result.age)
-    print(result.car)
+    print(result.cars)

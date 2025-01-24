@@ -188,6 +188,45 @@ def test_user_can_delete_post():
   assert None == service_post.find_post(id=post.id)
 ```
 
+# But maintain builders is time consuming.....
+
+You can be more aggressive in your development and use Graba to build any random object you have designed, gaining time. For instance:
+
+```python
+
+    class Car:
+        def __init__(self, color: str, engine_capacity: int, brand: str):
+            self.color = color
+            self.engine_capacity = engine_capacity
+            self.brand = brand
+
+        def __repr__(self):
+            return f"Car(color='{self.color}', engine_capacity='{self.engine_capacity}', brand='{self.brand}')"
+
+    class Person:
+        def __init__(self,
+                     colors: List[str],
+                     cars: List[Car],
+                     name: Optional[str] = "asdf",
+                     age: int = None,
+                 ):
+            self.colors = colors
+            self.name = name
+            self.age = age
+            self.cars = cars
+
+        def __repr__(self):
+            return f"Person(colors='{self.colors}', name='{self.name}', age='{self.age}', cars='{self.cars}')"
+
+    result: Person = any.object_like(Person)
+
+    print(result.colors) # ['bvgcshstqsqnxmlodfzzacpfmhoy', 'fcwbeu', 'qadwmuahskgreqkcbyvkyobxjkx']
+    print(result.name)  # wm
+    print(result.age)   # 774
+    print(result.cars)  # [Car(color='pgqkoqbhnkyhdr', engine_capacity='-357', brand='bgbc'), Car(color='lwj', engine_capacity='-339', brand='itrzgouqtujuigec')]
+
+```
+
 # Additional features of Graba
 
 You can generate controlled random list of objects:
